@@ -4,493 +4,449 @@ import Layout from './Layout.astro';
 
 <Layout>
 	<div class="desktop">
-		<div class="taskbar">
-			<button class="open-window-btn" data-window-id="window-1">Open Window 1</button>
-			<button class="open-window-btn" data-window-id="window-2">Open Window 2</button>
+		<div class="desktop-icons">
+			<slot name="taskbar" />
 		</div>
 
 		<div class="window-container">
-			<div class="window" id="window-1" style="left: 50px; top: 50px; width: 400px; height: 300px;">
-				<div class="titlebar">
-					<span class="title">Window 1</span>
-					<div class="titlebar-buttons" aria-label="Window controls">
-						<button class="titlebar-btn maximize-btn" type="button" aria-label="Maximize window" title="Maximize"></button>
-						<button class="titlebar-btn close-btn" type="button" aria-label="Close window" title="Close"></button>
-					</div>
-				</div>
-				<div class="window-content">
-					<slot name="window-1">
-						<p>This is window 1 content.</p>
-					</slot>
-				</div>
-				<div class="resize-handle"></div>
-			</div>
-
-			<div class="window" id="window-2" style="left: 150px; top: 120px; width: 400px; height: 300px;">
-				<div class="titlebar">
-					<span class="title">dithered webcam</span>
-					<div class="titlebar-buttons" aria-label="Window controls">
-						<button class="titlebar-btn maximize-btn" type="button" aria-label="Maximize window" title="Maximize"></button>
-						<button class="titlebar-btn close-btn" type="button" aria-label="Close window" title="Close"></button>
-					</div>
-				</div>
-				<div class="window-content">
-					<slot name="window-2">
-						<p>This is window 2 content.</p>
-					</slot>
-				</div>
-				<div class="resize-handle"></div>
-			</div>
+			<slot />
 		</div>
-
-		<slot />
 	</div>
 </Layout>
 
 <style>
-	/* CDE-ish (crimson) window decorations + basic controls.
-	   Scoped to this layout to avoid touching the rest of the site. */
-	.desktop {
-		/* desktop bg */
-		background: #63639c;
-	}
+ /* CDE-ish (crimson) window decorations + basic controls.
+	Scoped to this layout to avoid touching the rest of the site. */
+ .desktop {
+	 /* desktop bg */
+	 background: #37728c;
+ }
 
-	.window-container {
-		--cde-focus: #b24d7a;
-		--cde-desktop-bg: #63639c;
-		--cde-button-bg: #aeb2c3;
-		--cde-button-fg: #000;
-		--cde-button-active-bg: #9397a5;
-		--cde-button-dark: #5d6069;
-		--cde-button-light: #dcdfe5;
-		--cde-input-bg: #fff7e9;
-		--cde-input-fg: #000;
-		--cde-input-dark: #99948b;
-		--cde-input-light: #ccc5ba;
+ .window-container {
+	 --cde-focus: #818181;
+	 --cde-desktop-bg: #63639c;
+	 --cde-button-bg: #c0c0c0;
+	 --cde-button-fg: #000;
+	 --cde-button-active-bg: #9397a5;
+	 --cde-button-dark: #5d6069;
+	 --cde-button-light: #dcdfe5;
+	 --cde-input-bg: #fff7e9;
+	 --cde-input-fg: #000;
+	 --cde-input-dark: #99948b;
+	 --cde-input-light: #ccc5ba;
 
-		--cde-titlebar-bg: var(--cde-button-bg);
-		--cde-titlebar-fg: var(--cde-button-fg);
-		--cde-titlebar-dark: var(--cde-button-dark);
-		--cde-titlebar-light: var(--cde-button-light);
-		--cde-titlebar-active-bg: #b24d7a;
-		--cde-titlebar-active-fg: #fff;
-		--cde-titlebar-active-dark: #58263c;
-		--cde-titlebar-active-light: #ddafc3;
-	}
+	 --cde-titlebar-bg: var(--cde-button-bg);
+	 --cde-titlebar-fg: var(--cde-button-fg);
+	 --cde-titlebar-dark: var(--cde-button-dark);
+	 --cde-titlebar-light: var(--cde-button-light);
+	 --cde-titlebar-active-bg: #818181;
+	 --cde-titlebar-active-fg: #fff;
+	 --cde-titlebar-active-dark: #000;
+	 --cde-titlebar-active-light: #ced8cf;
+ }
 
-	.desktop {
-		position: relative;
-		width: 100%;
-		min-height: 100vh;
-		overflow: hidden;
-	}
+ .desktop {
+	 position: relative;
+	 width: 100%;
+	 min-height: 100vh;
+	 overflow: hidden;
+	 margin-top: 4rem;
+	 margin-bottom: 4rem;
+ }
 
-	.taskbar {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 48px;
-		/* background: linear-gradient(to bottom, #4a5568, #2d3748); */
-		border-top: 1px solid #718096;
-		display: flex;
-		align-items: center;
-		padding: 0 12px;
-		gap: 8px;
-		z-index: 1000;
-	}
+ .desktop-icons {
+	 position: absolute;
+	 top: 20px;
+	 left: 20px;
+	 display: flex;
+	 flex-wrap: wrap;
+	 flex-direction: column;
+	 gap: 20px;
+	 align-content: flex-start;
+	 z-index: 1;
+	 max-height: calc(100vh - 40px);
+	 overflow-y: auto;
+	 padding-right: 10px;
+ }
 
-	.open-window-btn {
-		padding: 2px 10px;
-		background: var(--cde-button-bg);
-		color: var(--cde-button-fg);
-		border: 1px solid var(--cde-button-light);
-		border-right-color: var(--cde-button-dark);
-		border-bottom-color: var(--cde-button-dark);
-		border-radius: 0;
-		font-size: 13px;
-		cursor: pointer;
-		user-select: none;
-	}
+.desktop-icons :global(.desktop-icon) {
+	 /* Styles are handled by DesktopIcon component */
+ }
 
-	.open-window-btn:hover {
-		filter: brightness(1.03);
-	}
+ .window-container {
+	 position: relative;
+	 width: 100%;
+	 height: 100vh;
+ }
 
-	.open-window-btn:active {
-		background: var(--cde-button-active-bg);
-		border-color: var(--cde-button-light);
-		border-top-color: var(--cde-button-dark);
-		border-left-color: var(--cde-button-dark);
-	}
+.window-container :global(.window) {
+	 position: absolute;
+	 background: var(--cde-titlebar-bg);
+	 border: 2px solid var(--cde-titlebar-light);
+	 border-right-color: var(--cde-titlebar-dark);
+	 border-bottom-color: var(--cde-titlebar-dark);
+	 box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+	 display: flex;
+	 flex-direction: column;
+	 min-width: 200px;
+	 min-height: 100px;
+	 overflow: hidden;
+	 padding: 2px;
+ }
 
-	.window-container {
-		position: relative;
-		width: 100%;
-		height: calc(100vh - 48px);
-	}
+.window-container :global(.window.hidden) {
+	 display: none;
+ }
 
-	.window {
-		position: absolute;
-		background: var(--cde-titlebar-bg);
-		border: 2px solid var(--cde-titlebar-light);
-		border-right-color: var(--cde-titlebar-dark);
-		border-bottom-color: var(--cde-titlebar-dark);
-		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-		display: flex;
-		flex-direction: column;
-		min-width: 200px;
-		min-height: 100px;
-		overflow: hidden;
-		padding: 2px;
-	}
+.window-container :global(.titlebar) {
+	 display: flex;
+	 align-items: center;
+	 justify-content: space-between;
+	 padding: 0 4px;
+	 height: 28px;
+	 background: var(--cde-titlebar-active-bg);
+	 color: var(--cde-titlebar-active-fg);
+	 border-top: 1px solid var(--cde-titlebar-active-dark);
+	 border-left: 1px solid var(--cde-titlebar-active-dark);
+	 border-right: 1px solid var(--cde-titlebar-active-light);
+	 cursor: grab;
+	 user-select: none;
+	 flex-shrink: 0;
+ }
 
-	.window.hidden {
-		display: none;
-	}
+.window-container :global(.titlebar:active) {
+	 cursor: grabbing;
+ }
 
-	.titlebar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 4px;
-		height: 28px;
-		background: var(--cde-titlebar-active-bg);
-		color: var(--cde-titlebar-active-fg);
-		border-top: 1px solid var(--cde-titlebar-active-dark);
-		border-left: 1px solid var(--cde-titlebar-active-dark);
-		border-right: 1px solid var(--cde-titlebar-active-light);
-		cursor: grab;
-		user-select: none;
-		flex-shrink: 0;
-	}
+.window-container :global(.title) {
+	 color: inherit;
+	 font-family: system-ui, sans-serif;
+	 font-size: 13px;
+	 font-weight: 600;
+	 padding: 2px 8px;
+	 border: 1px solid var(--cde-titlebar-active-light);
+	 border-right-color: var(--cde-titlebar-active-dark);
+	 border-bottom-color: var(--cde-titlebar-active-dark);
+	 white-space: nowrap;
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 flex: 1;
+	 margin-inline: 6px;
+ }
 
-	.titlebar:active {
-		cursor: grabbing;
-	}
+.window-container :global(.titlebar-buttons) {
+	 display: flex;
+	 gap: 4px;
+	 flex-shrink: 0;
+ }
 
-	.title {
-		color: inherit;
-		font-family: system-ui, sans-serif;
-		font-size: 13px;
-		font-weight: 600;
-		padding: 2px 8px;
-		border: 1px solid var(--cde-titlebar-active-light);
-		border-right-color: var(--cde-titlebar-active-dark);
-		border-bottom-color: var(--cde-titlebar-active-dark);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		flex: 1;
-		margin-right: 6px;
-	}
+.window-container :global(.titlebar-btn) {
+	 width: 22px;
+	 height: 20px;
+	 padding: 0;
+	 cursor: pointer;
+	 display: flex;
+	 align-items: center;
+	 justify-content: center;
+	 background: transparent;
+	 border: 1px solid var(--cde-titlebar-active-light);
+	 border-right-color: var(--cde-titlebar-active-dark);
+	 border-bottom-color: var(--cde-titlebar-active-dark);
+	 color: var(--cde-titlebar-active-fg);
+	 font: inherit;
+	 user-select: none;
+ }
 
-	.titlebar-buttons {
-		display: flex;
-		gap: 4px;
-		flex-shrink: 0;
-	}
+.window-container :global(.titlebar-btn:focus-visible) {
+	 outline: 1px solid var(--cde-focus);
+	 outline-offset: 1px;
+ }
 
-	.titlebar-btn {
-		width: 22px;
-		height: 20px;
-		padding: 0;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: transparent;
-		border: 1px solid var(--cde-titlebar-active-light);
-		border-right-color: var(--cde-titlebar-active-dark);
-		border-bottom-color: var(--cde-titlebar-active-dark);
-		color: var(--cde-titlebar-active-fg);
-		font: inherit;
-		user-select: none;
-	}
+.window-container :global(.titlebar-btn:active) {
+	 border-color: var(--cde-titlebar-active-light);
+	 border-top-color: var(--cde-titlebar-active-dark);
+	 border-left-color: var(--cde-titlebar-active-dark);
+ }
 
-	.titlebar-btn:focus-visible {
-		outline: 1px solid var(--cde-focus);
-		outline-offset: 1px;
-	}
+ /* simple glyphs (no extra assets) */
+.window-container :global(.maximize-btn::before) {
+	 content: "";
+	 width: 11px;
+	 height: 9px;
+	 border: 2px solid currentColor;
+	 box-sizing: border-box;
+	 display: block;
+	 transform: translateY(-0.5px);
+ }
 
-	.titlebar-btn:active {
-		border-color: var(--cde-titlebar-active-light);
-		border-top-color: var(--cde-titlebar-active-dark);
-		border-left-color: var(--cde-titlebar-active-dark);
-	}
+.window-container :global(.window.maximized .maximize-btn::before) {
+	 /* "restore" look */
+	 width: 10px;
+	 height: 8px;
+	 box-shadow: -3px 3px 0 0 currentColor;
+	 border-width: 2px;
+ }
 
-	/* simple glyphs (no extra assets) */
-	.maximize-btn::before {
-		content: "";
-		width: 11px;
-		height: 9px;
-		border: 2px solid currentColor;
-		box-sizing: border-box;
-		display: block;
-		transform: translateY(-0.5px);
-	}
+.window-container :global(.close-btn::before) {
+	 content: ".";
+	 font-size: 16px;
+	 line-height: 1;
+	 transform: translateY(-1px);
+ }
 
-	.window.maximized .maximize-btn::before {
-		/* "restore" look */
-		width: 10px;
-		height: 8px;
-		box-shadow: -3px 3px 0 0 currentColor;
-		border-width: 2px;
-	}
+.window-container :global(.shade-btn::before) {
+	 content: "-";
+	 font-size: 16px;
+	 line-height: 1;
+	 transform: translateY(-1px);
+ }
 
-	.close-btn::before {
-		content: "×";
-		font-size: 16px;
-		line-height: 1;
-		transform: translateY(-1px);
-	}
+.window-container :global(.window-content) {
+	 flex: 1;
+	 padding: 12px;
+	 overflow: auto;
+	 background: var(--cde-button-bg);
+	 color: var(--cde-button-fg);
+	 border-left: 1px solid var(--cde-titlebar-active-dark);
+	 border-right: 1px solid var(--cde-titlebar-active-light);
+	 border-bottom: 1px solid var(--cde-titlebar-active-light);
+ }
 
-	.window-content {
-		flex: 1;
-		padding: 12px;
-		overflow: auto;
-		background: var(--cde-button-bg);
-		color: var(--cde-button-fg);
-		border-left: 1px solid var(--cde-titlebar-active-dark);
-		border-right: 1px solid var(--cde-titlebar-active-light);
-		border-bottom: 1px solid var(--cde-titlebar-active-light);
-	}
+.window-container :global(.resize-handle) {
+	 position: absolute;
+	 right: 0;
+	 bottom: 0;
+	 width: 16px;
+	 height: 16px;
+	 cursor: pointer;
+	 background:
+		 linear-gradient(135deg, transparent 0 55%, var(--cde-button-dark) 55% 60%, transparent 60% 70%, var(--cde-button-dark) 70% 75%, transparent 75%),
+		 linear-gradient(135deg, transparent 0 55%, var(--cde-button-light) 55% 60%, transparent 60% 70%, var(--cde-button-light) 70% 75%, transparent 75%);
+	 opacity: 0.9;
+ }
 
-	.resize-handle {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		width: 16px;
-		height: 16px;
-		cursor: pointer;
-		background:
-			linear-gradient(135deg, transparent 0 55%, var(--cde-button-dark) 55% 60%, transparent 60% 70%, var(--cde-button-dark) 70% 75%, transparent 75%),
-			linear-gradient(135deg, transparent 0 55%, var(--cde-button-light) 55% 60%, transparent 60% 70%, var(--cde-button-light) 70% 75%, transparent 75%);
-		opacity: 0.9;
-	}
+ /* ---- Basic controls inside windows ---- */
+ .window-container :global(.window-content button),
+ .window-container :global(.window-content input[type='button']),
+ .window-container :global(.window-content input[type='submit']),
+ .window-container :global(.window-content input[type='reset']) {
+	 background: var(--cde-button-bg);
+	 color: var(--cde-button-fg);
+	 border: 1px solid var(--cde-button-light);
+	 border-right-color: var(--cde-button-dark);
+	 border-bottom-color: var(--cde-button-dark);
+	 padding: 2px 8px;
+	 font: inherit;
+	 cursor: default;
+ }
 
-	/* ---- Basic controls inside windows (only what you asked for) ---- */
-	.window-container :global(.window-content button),
-	.window-container :global(.window-content input[type='button']),
-	.window-container :global(.window-content input[type='submit']),
-	.window-container :global(.window-content input[type='reset']) {
-		background: var(--cde-button-bg);
-		color: var(--cde-button-fg);
-		border: 1px solid var(--cde-button-light);
-		border-right-color: var(--cde-button-dark);
-		border-bottom-color: var(--cde-button-dark);
-		padding: 2px 8px;
-		font: inherit;
-		cursor: default;
-	}
+ .window-container :global(.window-content button:active),
+ .window-container :global(.window-content input[type='button']:active),
+ .window-container :global(.window-content input[type='submit']:active),
+ .window-container :global(.window-content input[type='reset']:active) {
+	 background: var(--cde-button-active-bg);
+	 border-color: var(--cde-button-light);
+	 border-top-color: var(--cde-button-dark);
+	 border-left-color: var(--cde-button-dark);
+ }
 
-	.window-container :global(.window-content button:active),
-	.window-container :global(.window-content input[type='button']:active),
-	.window-container :global(.window-content input[type='submit']:active),
-	.window-container :global(.window-content input[type='reset']:active) {
-		background: var(--cde-button-active-bg);
-		border-color: var(--cde-button-light);
-		border-top-color: var(--cde-button-dark);
-		border-left-color: var(--cde-button-dark);
-	}
+ .window-container :global(.window-content button:focus-visible),
+ .window-container :global(.window-content input[type='button']:focus-visible),
+ .window-container :global(.window-content input[type='submit']:focus-visible),
+ .window-container :global(.window-content input[type='reset']:focus-visible) {
+	 outline: 1px solid var(--cde-focus);
+	 outline-offset: 1px;
+ }
 
-	.window-container :global(.window-content button:focus-visible),
-	.window-container :global(.window-content input[type='button']:focus-visible),
-	.window-container :global(.window-content input[type='submit']:focus-visible),
-	.window-container :global(.window-content input[type='reset']:focus-visible) {
-		outline: 1px solid var(--cde-focus);
-		outline-offset: 1px;
-	}
+ .window-container :global(.window-content input:not([type='button'], [type='submit'], [type='reset'], [type='checkbox'], [type='radio'], [type='range'])),
+ .window-container :global(.window-content textarea) {
+	 background: var(--cde-input-bg);
+	 color: var(--cde-input-fg);
+	 border: 1px solid var(--cde-input-dark);
+	 border-right-color: var(--cde-input-light);
+	 border-bottom-color: var(--cde-input-light);
+	 padding: 2px 6px;
+	 font: inherit;
+	 outline: none;
+ }
 
-	.window-container :global(.window-content input:not([type='button'], [type='submit'], [type='reset'], [type='checkbox'], [type='radio'], [type='range'])),
-	.window-container :global(.window-content textarea) {
-		background: var(--cde-input-bg);
-		color: var(--cde-input-fg);
-		border: 1px solid var(--cde-input-dark);
-		border-right-color: var(--cde-input-light);
-		border-bottom-color: var(--cde-input-light);
-		padding: 2px 6px;
-		font: inherit;
-		outline: none;
-	}
+ .window-container :global(.window-content input:not([type='button'], [type='submit'], [type='reset'], [type='checkbox'], [type='radio'], [type='range']):focus),
+ .window-container :global(.window-content textarea:focus) {
+	 outline: 1px solid var(--cde-focus);
+	 outline-offset: 0;
+ }
 
-	.window-container :global(.window-content input:not([type='button'], [type='submit'], [type='reset'], [type='checkbox'], [type='radio'], [type='range']):focus),
-	.window-container :global(.window-content textarea:focus) {
-		outline: 1px solid var(--cde-focus);
-		outline-offset: 0;
-	}
+ .window-container :global(.window-content progress) {
+	 appearance: none;
+	 -webkit-appearance: none;
+	 background: var(--cde-button-bg);
+	 border: 1px solid var(--cde-button-dark);
+	 border-right-color: var(--cde-button-light);
+	 border-bottom-color: var(--cde-button-light);
+	 height: 16px;
+ }
 
-	.window-container :global(.window-content progress) {
-		appearance: none;
-		-webkit-appearance: none;
-		background: var(--cde-button-bg);
-		border: 1px solid var(--cde-button-dark);
-		border-right-color: var(--cde-button-light);
-		border-bottom-color: var(--cde-button-light);
-		height: 16px;
-	}
+ .window-container :global(.window-content progress::-webkit-progress-bar) {
+	 background: var(--cde-button-bg);
+ }
 
-	.window-container :global(.window-content progress::-webkit-progress-bar) {
-		background: var(--cde-button-bg);
-	}
+ .window-container :global(.window-content progress::-webkit-progress-value) {
+	 background: var(--cde-button-active-bg);
+ }
 
-	.window-container :global(.window-content progress::-webkit-progress-value) {
-		background: var(--cde-button-active-bg);
-	}
-
-	.window-container :global(.window-content progress::-moz-progress-bar) {
-		background: var(--cde-button-active-bg);
-	}
+ .window-container :global(.window-content progress::-moz-progress-bar) {
+	 background: var(--cde-button-active-bg);
+ }
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const windows = document.querySelectorAll('.window');
-		let highestZIndex = 10;
+ document.addEventListener('DOMContentLoaded', () => {
+	 const windows = document.querySelectorAll('.window');
+	 let highestZIndex = 10;
 
-		// Open window buttons
-		document.querySelectorAll('.open-window-btn').forEach(btn => {
-			btn.addEventListener('click', () => {
-				const windowId = btn.getAttribute('data-window-id');
-				const targetWindow = document.getElementById(windowId);
-				if (targetWindow) {
-					targetWindow.classList.remove('hidden');
-					bringToFront(targetWindow);
-				}
-			});
-		});
+	 // Open window buttons (both .open-window-btn and .desktop-icon)
+	 document.querySelectorAll('.open-window-btn, .desktop-icon').forEach(btn => {
+		 btn.addEventListener('click', () => {
+			 const windowId = btn.getAttribute('data-window-id');
+			 const targetWindow = document.getElementById(windowId);
+			 if (targetWindow) {
+				 targetWindow.classList.remove('hidden');
+				 bringToFront(targetWindow);
+			 }
+		 });
+	 });
 
-		windows.forEach(win => {
-			const titlebar = win.querySelector('.titlebar');
-			const closeBtn = win.querySelector('.close-btn');
-			const maximizeBtn = win.querySelector('.maximize-btn');
-			const resizeHandle = win.querySelector('.resize-handle');
-			const container = win.closest('.window-container');
+	 windows.forEach(win => {
+		 const titlebar = win.querySelector('.titlebar');
+		 const closeBtn = win.querySelector('.close-btn');
+		 const maximizeBtn = win.querySelector('.maximize-btn');
+		 const resizeHandle = win.querySelector('.resize-handle');
+		 const container = win.closest('.window-container');
 
-			// Bring window to front on click
-			win.addEventListener('mousedown', () => {
-				bringToFront(win);
-			});
+		 // Bring window to front on click
+		 win.addEventListener('mousedown', () => {
+			 bringToFront(win);
+		 });
 
-			// Close button
-			closeBtn?.addEventListener('click', (e) => {
-				e.stopPropagation();
-				win.classList.add('hidden');
-			});
+		 // Close button
+		 closeBtn?.addEventListener('click', (e) => {
+			 e.stopPropagation();
+			 win.classList.add('hidden');
+		 });
 
-			// Maximize / restore
-			let prevRect: { left: string; top: string; width: string; height: string } | null = null;
-			maximizeBtn?.addEventListener('click', (e) => {
-				e.stopPropagation();
-				bringToFront(win);
+		 // Maximize / restore
+		 let prevRect: { left: string; top: string; width: string; height: string } | null = null;
+		 maximizeBtn?.addEventListener('click', (e) => {
+			 e.stopPropagation();
+			 bringToFront(win);
 
-				const isMax = win.classList.toggle('maximized');
-				const winEl = win as HTMLElement;
-				const containerEl = container as HTMLElement | null;
-				if (!containerEl) return;
+			 const isMax = win.classList.toggle('maximized');
+			 const winEl = win as HTMLElement;
+			 const containerEl = container as HTMLElement | null;
+			 if (!containerEl) return;
 
-				if (isMax) {
-					prevRect = {
-						left: winEl.style.left,
-						top: winEl.style.top,
-						width: winEl.style.width,
-						height: winEl.style.height,
-					};
+			 if (isMax) {
+				 prevRect = {
+					 left: winEl.style.left,
+					 top: winEl.style.top,
+					 width: winEl.style.width,
+					 height: winEl.style.height,
+				 };
 
-					const taskbarHeight = 48;
-					winEl.style.left = '0px';
-					winEl.style.top = '0px';
-					winEl.style.width = `${containerEl.clientWidth}px`;
-					winEl.style.height = `${Math.max(100, containerEl.clientHeight)}px`;
-				} else if (prevRect) {
-					winEl.style.left = prevRect.left;
-					winEl.style.top = prevRect.top;
-					winEl.style.width = prevRect.width;
-					winEl.style.height = prevRect.height;
-				}
-			});
+				 const taskbarHeight = 48;
+				 winEl.style.left = '0px';
+				 winEl.style.top = '0px';
+				 winEl.style.width = `${containerEl.clientWidth}px`;
+				 winEl.style.height = `${Math.max(100, containerEl.clientHeight)}px`;
+			 } else if (prevRect) {
+				 winEl.style.left = prevRect.left;
+				 winEl.style.top = prevRect.top;
+				 winEl.style.width = prevRect.width;
+				 winEl.style.height = prevRect.height;
+			 }
+		 });
 
-			// Drag functionality
-			let isDragging = false;
-			let dragStartX = 0;
-			let dragStartY = 0;
-			let windowStartX = 0;
-			let windowStartY = 0;
+		 // Drag functionality
+		 let isDragging = false;
+		 let dragStartX = 0;
+		 let dragStartY = 0;
+		 let windowStartX = 0;
+		 let windowStartY = 0;
 
-			titlebar?.addEventListener('mousedown', (e) => {
-				if (e.target === closeBtn || e.target === maximizeBtn) return;
-				if ((e.target as HTMLElement | null)?.closest?.('.titlebar-buttons')) return;
-				if (win.classList.contains('maximized')) return;
-				
-				isDragging = true;
-				dragStartX = e.clientX;
-				dragStartY = e.clientY;
-				windowStartX = win.offsetLeft;
-				windowStartY = win.offsetTop;
-				
-				document.addEventListener('mousemove', onDrag);
-				document.addEventListener('mouseup', stopDrag);
-			});
+		 titlebar?.addEventListener('mousedown', (e) => {
+			 if (e.target === closeBtn || e.target === maximizeBtn) return;
+			 if ((e.target as HTMLElement | null)?.closest?.('.titlebar-buttons')) return;
+			 if (win.classList.contains('maximized')) return;
 
-			function onDrag(e: MouseEvent) {
-				if (!isDragging) return;
-				
-				const deltaX = e.clientX - dragStartX;
-				const deltaY = e.clientY - dragStartY;
-				
-				win.style.left = `${windowStartX + deltaX}px`;
-				win.style.top = `${windowStartY + deltaY}px`;
-			}
+			 isDragging = true;
+			 dragStartX = e.clientX;
+			 dragStartY = e.clientY;
+			 windowStartX = win.offsetLeft;
+			 windowStartY = win.offsetTop;
 
-			function stopDrag() {
-				isDragging = false;
-				document.removeEventListener('mousemove', onDrag);
-				document.removeEventListener('mouseup', stopDrag);
-			}
+			 document.addEventListener('mousemove', onDrag);
+			 document.addEventListener('mouseup', stopDrag);
+		 });
 
-			// Resize functionality
-			let isResizing = false;
-			let resizeStartX = 0;
-			let resizeStartY = 0;
-			let startWidth = 0;
-			let startHeight = 0;
+		 function onDrag(e: MouseEvent) {
+			 if (!isDragging) return;
 
-			resizeHandle?.addEventListener('mousedown', (e) => {
-				e.stopPropagation();
-				if (win.classList.contains('maximized')) return;
-				isResizing = true;
-				resizeStartX = e.clientX;
-				resizeStartY = e.clientY;
-				startWidth = win.offsetWidth;
-				startHeight = win.offsetHeight;
-				
-				document.addEventListener('mousemove', onResize);
-				document.addEventListener('mouseup', stopResize);
-			});
+			 const deltaX = e.clientX - dragStartX;
+			 const deltaY = e.clientY - dragStartY;
 
-			function onResize(e: MouseEvent) {
-				if (!isResizing) return;
-				
-				const deltaX = e.clientX - resizeStartX;
-				const deltaY = e.clientY - resizeStartY;
-				
-				const newWidth = Math.max(200, startWidth + deltaX);
-				const newHeight = Math.max(100, startHeight + deltaY);
-				
-				win.style.width = `${newWidth}px`;
-				win.style.height = `${newHeight}px`;
-			}
+			 win.style.left = `${windowStartX + deltaX}px`;
+			 win.style.top = `${windowStartY + deltaY}px`;
+		 }
 
-			function stopResize() {
-				isResizing = false;
-				document.removeEventListener('mousemove', onResize);
-				document.removeEventListener('mouseup', stopResize);
-			}
-		});
+		 function stopDrag() {
+			 isDragging = false;
+			 document.removeEventListener('mousemove', onDrag);
+			 document.removeEventListener('mouseup', stopDrag);
+		 }
 
-		function bringToFront(win: Element) {
-			highestZIndex++;
-			(win as HTMLElement).style.zIndex = String(highestZIndex);
-		}
-	});
+		 // Resize functionality
+		 let isResizing = false;
+		 let resizeStartX = 0;
+		 let resizeStartY = 0;
+		 let startWidth = 0;
+		 let startHeight = 0;
+
+		 resizeHandle?.addEventListener('mousedown', (e) => {
+			 e.stopPropagation();
+			 if (win.classList.contains('maximized')) return;
+			 isResizing = true;
+			 resizeStartX = e.clientX;
+			 resizeStartY = e.clientY;
+			 startWidth = win.offsetWidth;
+			 startHeight = win.offsetHeight;
+
+			 document.addEventListener('mousemove', onResize);
+			 document.addEventListener('mouseup', stopResize);
+		 });
+
+		 function onResize(e: MouseEvent) {
+			 if (!isResizing) return;
+
+			 const deltaX = e.clientX - resizeStartX;
+			 const deltaY = e.clientY - resizeStartY;
+
+			 const newWidth = Math.max(200, startWidth + deltaX);
+			 const newHeight = Math.max(100, startHeight + deltaY);
+
+			 win.style.width = `${newWidth}px`;
+			 win.style.height = `${newHeight}px`;
+		 }
+
+		 function stopResize() {
+			 isResizing = false;
+			 document.removeEventListener('mousemove', onResize);
+			 document.removeEventListener('mouseup', stopResize);
+		 }
+	 });
+
+	 function bringToFront(win: Element) {
+		 highestZIndex++;
+		 (win as HTMLElement).style.zIndex = String(highestZIndex);
+	 }
+ });
 </script>

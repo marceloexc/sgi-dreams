@@ -4,8 +4,12 @@ import Layout from '../layouts/Layout.astro';
 import FullViewportLayout from '../layouts/FullViewportLayout.astro';
 import WindowLayout from '../layouts/WindowLayout.astro';
 import WebcamDither from '../components/WebcamDither.astro';
+import Window from '../components/Window.astro';
+import DesktopIcon from '../components/DesktopIcon.astro';
 import { Image } from "astro:assets";
 import sgi_logo from "../assets/sgi.svg"
+import horizon from "../assets/horizon.png"
+import sgi_obituary from "../assets/sgi-obituary.png"
 ---
 
 <FullViewportLayout>
@@ -23,18 +27,88 @@ import sgi_logo from "../assets/sgi.svg"
 </FullViewportLayout>
 
 <WindowLayout>
-	<div slot="window-1">
-		<h2>Custom content for window 1</h2>
-		<p>Put anything here.</p>
-	</div>
-	<div slot="window-2">
-		<WebcamDither />
-	</div>
+	<DesktopIcon slot="taskbar" windowId="window-origins" title="Origins" />
+	<DesktopIcon slot="taskbar" windowId="window-demo" title="Demo Reel" />
+	<DesktopIcon slot="taskbar" windowId="window-irix" title="IRIX" />
+
+	<Window id="window-origins" title="Silicon Graphics origins" left={50} top={50} width={400} height={300}>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/dFUlAQZB9Ng?si=5bTTay12BT6fZpia&amp;start=3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</Window>
+
+	<Window id="window-demo" title="SGI demo reel" left={150} top={120} width={400} height={300}>
+		<!-- <WebcamDither /> -->
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/5TqPl3MSSow?si=IiMTnl9jTkohV4Ns&amp;start=32" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	</Window>
+
+	<Window id="window-irix" title="Welcome to IRIX!" left={300} top={100} width={400} height={300}>
+		<p>
+			IRIX is the desktop experience of Silicon Graphics Computers, the ultra powerful supercomputer product line that was behind many of the technical achievements in Hollywood throughout the 90's.
+
+			CGI Segments in movies such as Jurassic Park, Terminator 2, and the entirety of Toy Story were created, edited, and rendered entirely on SGI systems!
+
+			You could expect to pay upwards of $200,000 for just ONE (1) of these workstations. If you had a team of artists that needed computers, that would be a lot of money spent on just hardware!
+		</p>
+	</Window>
 </WindowLayout>
 
-<Layout>
-	<Welcome />
-</Layout>
+<FullViewportLayout>
+	<div class="hero-2">
+
+		<div class="banner-text">
+			<h2>
+				silicon graphics
+				<span class="not-for">not just for hollywood</span>
+				
+			</h2>
+		</div>
+		<Image class="horizon-image" src={horizon} alt="gradient"/>
+
+	</div>
+</FullViewportLayout>
+
+<WindowLayout>
+	<DesktopIcon slot="taskbar" windowId="window-about" title="About" />
+	<DesktopIcon slot="taskbar" windowId="window-webcam" title="Webcam" />
+
+	<Window id="window-about" title="About this project" left={80} top={60} width={420} height={260}>
+		<h2>Custom content for window 1</h2>
+		<p>Put anything here.</p>
+	</Window>
+
+	<Window id="window-webcam" title="Dithered webcam" left={200} top={140} width={420} height={320}>
+		<WebcamDither />
+	</Window>
+</WindowLayout>
+
+<FullViewportLayout>
+	<div class="hero-3">
+
+		<h2>
+			Silicon Graphics is dead
+		</h2>
+
+		<Image class="sgi-obituary" src={sgi_obituary} alt="gradient"/>
+
+		<h2>
+			Long live Silicon Graphics
+		</h2>
+
+	</div>
+</FullViewportLayout>
+
+<WindowLayout>
+	<DesktopIcon slot="taskbar" windowId="window-about" title="About" />
+	<DesktopIcon slot="taskbar" windowId="window-webcam" title="Webcam" />
+
+	<Window id="window-about" title="About this project" left={80} top={60} width={420} height={260}>
+		<h2>Custom content for window 1</h2>
+		<p>Put anything here.</p>
+	</Window>
+
+	<Window id="window-webcam" title="Dithered webcam" left={200} top={140} width={420} height={320}>
+		<WebcamDither />
+	</Window>
+</WindowLayout>
 
 
 <style>
@@ -54,24 +128,84 @@ import sgi_logo from "../assets/sgi.svg"
 
  .hero {
 	 display: flex;
+	 position: relative;
+	 gap: 0; /* Removes all gaps (row and column) */
+	 justify-content: flex-start; /* Aligns items to the start of the main axis */ */
+	 align-content: flex-start;
+	 /* align-items: bottom: ;; */
  }
 
  .hero h1 {
 	 color: #472b91 !important;
  }
 
- .sgi-logo {
-	 // do some offsets here
+ .sgi_logo {
+	 left: -140px;
+	 position: relative;
+	 bottom: 50px;
  }
 
  .bar {
 	 background-color: #571e52;
+	 max-width: 400px;
  }
 
  .hero p, h2 {
 	 color: #CACEC7;
 	 font-family: 'SGI', sans-serif;
 
+ }
+
+ .hero-2 {
+	 background-color: #005642;
+	 min-height: 100dvh;
+	 min-height: 100vh;
+	 width: 100%;
+	 display: flex;
+	 flex-flow: column;
+	 align-items: center;
+	 justify-content: center;
+ }
+
+ .banner-text {
+	 display: flex;
+ }
+
+ .banner-text h2 {
+	 color: white;
+ }
+
+ .not-for {
+
+	 color: #ff5f00;
+ }
+
+ .hero-3 {
+	 min-height: 100dvh;
+	 min-height: 100vh;
+	 width: 100%;
+	 display: flex;
+	 flex-flow: column;
+	 align-items: center;
+	 justify-content: center;
+	 background: radial-gradient(ellipse 80% 100% at 50% 60%, #a0b1ff , #8b9cfb,  #6574c4, #48529a, #1b255d, #020d39, #00001a, #00010f 65%);
+
+	 h2 {
+		 font-size: 200%;
+	 }
+ }
+
+ .sgi-obituary {
+	 width: 55%;
+	 height: auto;
+	 max-width: 100%;
+ }
+
+ .horizon-image {
+	 width: 100%;
+	 height: auto;
+	 max-width: 100%;
+	 object-fit: contain;
  }
 
 </style>
