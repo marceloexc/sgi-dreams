@@ -1,11 +1,77 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import FullViewportLayout from '../layouts/FullViewportLayout.astro';
+import WindowLayout from '../layouts/WindowLayout.astro';
+import WebcamDither from '../components/WebcamDither.astro';
+import { Image } from "astro:assets";
+import sgi_logo from "../assets/sgi.svg"
 ---
+
+<FullViewportLayout>
+	<div class="hero">
+		<Image class="sgi_logo" src={sgi_logo} alt="gradient"/>
+
+		<div class="bar">
+			<h2>
+				How Silicon Graphics changed computing forever
+			</h2>
+			<p>An interactive retrospective by Marcelo Mendez</p>
+
+		</div>
+	</div>
+</FullViewportLayout>
+
+<WindowLayout>
+	<div slot="window-1">
+		<h2>Custom content for window 1</h2>
+		<p>Put anything here.</p>
+	</div>
+	<div slot="window-2">
+		<WebcamDither />
+	</div>
+</WindowLayout>
 
 <Layout>
 	<Welcome />
 </Layout>
+
+
+<style>
+
+ body {
+	 background-color: black;
+ }
+
+ h1 {
+	 font-size: 20rem;
+	 margin: 0;
+ }
+
+ h1, p, h2 {
+	 color: white;
+ }
+
+ .hero {
+	 display: flex;
+ }
+
+ .hero h1 {
+	 color: #472b91 !important;
+ }
+
+ .sgi-logo {
+	 // do some offsets here
+ }
+
+ .bar {
+	 background-color: #571e52;
+ }
+
+ .hero p, h2 {
+	 color: #CACEC7;
+	 font-family: 'SGI', sans-serif;
+
+ }
+
+</style>

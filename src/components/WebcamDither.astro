@@ -1,0 +1,169 @@
+---
+---
+
+<div class="webcam-dither">
+	<div class="controls">
+		<button type="button" id="start-btn">start webcam</button>
+		<button type="button" id="stop-btn" disabled>stop</button>
+	</div>
+	<div class="video-wrap">
+		<video id="webcam-video" playsinline muted autoplay></video>
+		<canvas id="dither-canvas"></canvas>
+	</div>
+	<!-- <p class="hint">Click "Start webcam" to enable camera. Video uses CSS filters for retro effect.</p> -->
+</div>
+
+<style>
+	.webcam-dither {
+		font-family: system-ui, sans-serif;
+		padding: 1rem;
+		/* background: #1a1a2e; */
+		/* border-radius: 8px; */
+		max-width: 640px;
+	}
+
+	.controls {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.controls button {
+		padding: 0.5rem 1rem;
+		font-size: 0.9rem;
+		/* border: 1px solid #4a5568; */
+		/* border-radius: 4px; */
+		/* background: #2d3748; */
+		/* color: #e2e8f0; */
+		cursor: pointer;
+	}
+
+	.controls button:hover:not(:disabled) {
+		background: #4a5568;
+	}
+
+	.controls button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.video-wrap {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		background: #0f0f0f;
+		/* border-radius: 4px; */
+		overflow: hidden;
+	}
+
+	#webcam-video {
+		display: none;
+	}
+
+	#dither-canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		/* Posterize effect for limited colors */
+		filter: contrast(1.2) saturate(0.8);
+		image-rendering: pixelated;
+		image-rendering: crisp-edges;
+	}
+
+	.hint {
+		margin-top: 0.75rem;
+		font-size: 0.8rem;
+		color: #718096;
+	}
+</style>
+
+<script>
+	let stream = null;
+	let animationId = null;
+
+	function init() {
+		const video = document.getElementById('webcam-video');
+		const canvas = document.getElementById('dither-canvas');
+		const startBtn = document.getElementById('start-btn');
+		const stopBtn = document.getElementById('stop-btn');
+
+		if (!video || !canvas || !startBtn || !stopBtn) return;
+
+		startBtn.addEventListener('click', async () => {
+			try {
+				stream = await navigator.mediaDevices.getUserMedia({
+					video: { width: 320, height: 240, facingMode: 'user' },
+				});
+				video.srcObject = stream;
+				await video.play();
+				startBtn.disabled = true;
+				stopBtn.disabled = false;
+				drawLoop(video, canvas);
+			} catch (e) {
+				console.error('Webcam error:', e);
+				alert('Could not access webcam: ' + e.message);
+			}
+		});
+
+		stopBtn.addEventListener('click', () => {
+			if (animationId != null) cancelAnimationFrame(animationId);
+			if (stream) {
+				stream.getTracks().forEach((t) => t.stop());
+				stream = null;
+			}
+			video.srcObject = null;
+			const ctx = canvas.getContext('2d');
+			if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+			startBtn.disabled = false;
+			stopBtn.disabled = true;
+		});
+	}
+
+	function drawLoop(video, canvas) {
+		const w = video.videoWidth;
+		const h = video.videoHeight;
+		if (!w || !h) {
+			animationId = requestAnimationFrame(() => drawLoop(video, canvas));
+			return;
+		}
+
+		// Use smaller resolution for performance
+		canvas.width = w;
+		canvas.height = h;
+		const ctx = canvas.getContext('2d', { willReadFrequently: true });
+		if (!ctx) return;
+
+		function tick() {
+			if (video.readyState < 2) {
+				animationId = requestAnimationFrame(tick);
+				return;
+			}
+
+			// Draw video frame
+			ctx.drawImage(video, 0, 0, w, h);
+
+			// Simple posterization: reduce color depth
+			const imageData = ctx.getImageData(0, 0, w, h);
+			const data = imageData.data;
+			const colorLevels = 4; // 4 levels per channel = 64 colors
+
+			for (let i = 0; i < data.length; i += 4) {
+				// Quantize each color channel
+				data[i] = Math.round(data[i] / 255 * colorLevels) * (255 / colorLevels);
+				data[i + 1] = Math.round(data[i + 1] / 255 * colorLevels) * (255 / colorLevels);
+				data[i + 2] = Math.round(data[i + 2] / 255 * colorLevels) * (255 / colorLevels);
+			}
+
+			ctx.putImageData(imageData, 0, 0);
+			animationId = requestAnimationFrame(tick);
+		}
+		tick();
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+</script>
