@@ -6,6 +6,7 @@ import WindowLayout from '../layouts/WindowLayout.astro';
 import WebcamDither from '../components/WebcamDither.astro';
 import Window from '../components/Window.astro';
 import DesktopIcon from '../components/DesktopIcon.astro';
+import Toolchest from '../components/Toolchest.astro';
 import { Image } from "astro:assets";
 import sgi_logo from "../assets/sgi.svg"
 import horizon from "../assets/horizon.png"
@@ -27,6 +28,7 @@ import sgi_obituary from "../assets/sgi-obituary.png"
 </FullViewportLayout>
 
 <WindowLayout>
+	<Toolchest slot="toolchest" />
 	<DesktopIcon slot="taskbar" windowId="window-origins" title="Origins" />
 	<DesktopIcon slot="taskbar" windowId="window-demo" title="Demo Reel" />
 	<DesktopIcon slot="taskbar" windowId="window-irix" title="IRIX" />

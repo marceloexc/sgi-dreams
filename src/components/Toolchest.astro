@@ -1,0 +1,85 @@
+---
+const items = ['Desktop', 'Selected', 'Internet', 'Find', 'System', 'Help', 'DevTool'];
+const left = 20;
+const top = 20;
+const width = 120;
+const height = 320;
+---
+
+<div
+	class="window toolchest-window"
+	id="window-toolchest"
+	style={`left: ${left}px; top: ${top}px; width: ${width}px; height: ${height}px;`}
+>
+	<div class="titlebar">
+		<span class="title">Toolchest</span>
+	</div>
+	<div class="window-content">
+		<ul class="toolchest-list">
+			{items.map((label) => (
+				<li>
+					<button type="button" class="toolchest-item">{label}</button>
+				</li>
+			))}
+		</ul>
+	</div>
+</div>
+
+<style>
+	.toolchest-window :global(.titlebar) {
+		padding: 0;
+		justify-content: center;
+	}
+
+	.toolchest-window :global(.window-content) {
+		padding: 0;
+	}
+
+	:global(.window-container .toolchest-window) {
+		padding: 0;
+	}
+
+	.toolchest-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.toolchest-item {
+		display: block;
+		width: 100%;
+		padding: 0;
+		text-align: left;
+		font-family: system-ui, sans-serif;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--cde-button-fg, #000);
+		background: var(--cde-button-bg, #c0c0c0);
+		border: 1px solid var(--cde-button-light, #dcdfe5);
+		border-right-color: var(--cde-button-dark, #5d6069);
+		border-bottom-color: var(--cde-button-dark, #5d6069);
+		cursor: default;
+		transition: background 0.1s, border-color 0.1s;
+		box-sizing: border-box;
+	}
+
+	.toolchest-item:hover {
+		background: #d0d4d8;
+	}
+
+	.toolchest-item:active {
+		background: var(--cde-button-active-bg, #9397a5);
+		border-color: var(--cde-button-dark, #5d6069);
+		border-top-color: var(--cde-button-dark, #5d6069);
+		border-left-color: var(--cde-button-dark, #5d6069);
+		box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+	}
+
+	/* Titlebar with only title: center or span full width */
+	.toolchest-window :global(.title) {
+		margin-inline: 0;
+	}
+</style>
