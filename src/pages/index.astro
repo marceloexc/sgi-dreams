@@ -7,6 +7,7 @@ import WebcamDither from '../components/WebcamDither.astro';
 import Window from '../components/Window.astro';
 import DesktopIcon from '../components/DesktopIcon.astro';
 import Toolchest from '../components/Toolchest.astro';
+import XClock from '../components/XClock.astro';
 import { Image } from "astro:assets";
 import sgi_logo from "../assets/sgi.svg"
 import horizon from "../assets/horizon.png"
@@ -32,6 +33,11 @@ import sgi_obituary from "../assets/sgi-obituary.png"
 	<DesktopIcon slot="taskbar" windowId="window-origins" title="Origins" />
 	<DesktopIcon slot="taskbar" windowId="window-demo" title="Demo Reel" />
 	<DesktopIcon slot="taskbar" windowId="window-irix" title="IRIX" />
+	<DesktopIcon slot="taskbar" windowId="window-xclock" title="Clock" />
+
+	<Window id="window-xclock" title="xclock" left={480} top={80} width={200} height={240}>
+		<XClock />
+	</Window>
 
 	<Window id="window-origins" title="Silicon Graphics origins" left={50} top={50} width={400} height={300}>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/dFUlAQZB9Ng?si=5bTTay12BT6fZpia&amp;start=3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

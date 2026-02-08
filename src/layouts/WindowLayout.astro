@@ -458,5 +458,9 @@ import Layout from './Layout.astro';
 		 highestZIndex++;
 		 (win as HTMLElement).style.zIndex = String(highestZIndex);
 	 }
+
+	 // Start with xclock as the front-most window
+	 const xclock = document.getElementById('window-xclock');
+	 if (xclock) bringToFront(xclock);
  });
 </script>

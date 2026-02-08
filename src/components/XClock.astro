@@ -1,0 +1,153 @@
+---
+// X11 xclock-style analog clock: round face, tick marks, hour/minute/second hands.
+---
+
+<div class="xclock" role="img" aria-label="Analog clock">
+	<svg class="xclock-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+		<!-- Face (raised/beveled look) -->
+		<circle class="xclock-face" cx="50" cy="50" r="46" />
+		<circle class="xclock-face-inner" cx="50" cy="50" r="43" />
+		<!-- 12 tick marks -->
+		<g class="xclock-ticks">
+			{[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map(
+				(deg) => {
+					const rad = (deg * Math.PI) / 180;
+					const inner = 50 - 38 * Math.cos(rad);
+					const innerY = 50 - 38 * Math.sin(rad);
+					const outer = 50 - 43 * Math.cos(rad);
+					const outerY = 50 - 43 * Math.sin(rad);
+					return (
+						<line
+							key={deg}
+							x1={inner}
+							y1={innerY}
+							x2={outer}
+							y2={outerY}
+						/>
+					);
+				}
+			)}
+		</g>
+		<!-- Hour hand -->
+		<line
+			class="xclock-hand xclock-hand-hour"
+			x1="50"
+			y1="50"
+			x2="50"
+			y2="28"
+			stroke-linecap="round"
+		/>
+		<!-- Minute hand -->
+		<line
+			class="xclock-hand xclock-hand-minute"
+			x1="50"
+			y1="50"
+			x2="50"
+			y2="16"
+			stroke-linecap="round"
+		/>
+		<!-- Second hand -->
+		<line
+			class="xclock-hand xclock-hand-second"
+			x1="50"
+			y1="50"
+			x2="50"
+			y2="12"
+			stroke-linecap="round"
+		/>
+		<!-- Center dot -->
+		<circle class="xclock-center" cx="50" cy="50" r="2" />
+	</svg>
+</div>
+
+<script>
+	function setAngle(el: Element | null, degrees: number) {
+		if (!el) return;
+		(el as HTMLElement).style.transform = `rotate(${degrees}deg)`;
+	}
+
+	function updateClock() {
+		const root = document.querySelector('.xclock');
+		if (!root) return;
+
+		const now = new Date();
+		const sec = now.getSeconds() + now.getMilliseconds() / 1000;
+		const min = now.getMinutes() + sec / 60;
+		const hour = (now.getHours() % 12) + min / 60;
+
+		const secDeg = (sec / 60) * 360;
+		const minDeg = (min / 60) * 360;
+		const hourDeg = (hour / 12) * 360;
+
+		setAngle(root.querySelector('.xclock-hand-hour'), hourDeg);
+		setAngle(root.querySelector('.xclock-hand-minute'), minDeg);
+		setAngle(root.querySelector('.xclock-hand-second'), secDeg);
+	}
+
+	// Smooth second hand: update frequently
+	setInterval(updateClock, 100);
+	updateClock();
+</script>
+
+<style>
+	.xclock {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 8px;
+		width: 100%;
+		height: 100%;
+		min-height: 140px;
+		box-sizing: border-box;
+	}
+
+	.xclock-svg {
+		width: 100%;
+		height: auto;
+		max-width: 200px;
+		max-height: 200px;
+	}
+
+	/* X11-style face: light gray with subtle border */
+	.xclock-face {
+		fill: #e8e4dc;
+		stroke: #8b8680;
+		stroke-width: 1.5;
+	}
+
+	.xclock-face-inner {
+		fill: #d8d4cc;
+		stroke: none;
+	}
+
+	/* Tick marks */
+	.xclock-ticks line {
+		stroke: #2c2c2c;
+		stroke-width: 1.2;
+	}
+
+	/* Hands: origin at center (50,50) */
+	.xclock-hand {
+		transform-origin: 50px 50px;
+		transition: transform 0.1s linear;
+	}
+
+	.xclock-hand-hour {
+		stroke: #1a1a1a;
+		stroke-width: 3;
+	}
+
+	.xclock-hand-minute {
+		stroke: #1a1a1a;
+		stroke-width: 2;
+	}
+
+	.xclock-hand-second {
+		stroke: #c00;
+		stroke-width: 1;
+	}
+
+	.xclock-center {
+		fill: #1a1a1a;
+	}
+</style>
