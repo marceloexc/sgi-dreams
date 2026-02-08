@@ -12,6 +12,17 @@ import { Image } from "astro:assets";
 import sgi_logo from "../assets/sgi.svg"
 import horizon from "../assets/horizon.png"
 import sgi_obituary from "../assets/sgi-obituary.png"
+// Desktop icons: real windows use group icon, fictional apps use the rest
+import Misc_Deskbar_Group from "../assets/Misc_Deskbar_Group.png"
+import Action_GoHome_2 from "../assets/Action_GoHome_2.png"
+import App_CDPlayer from "../assets/App_CDPlayer.png"
+import App_TV_2 from "../assets/App_TV_2.png"
+import File_Audio_2 from "../assets/File_Audio_2.png"
+import Alert_Info from "../assets/Alert_Info.png"
+import App_Chat from "../assets/App_Chat.png"
+import App_BeHappy from "../assets/App_BeHappy.png"
+import App_Poorman from "../assets/App_Poorman.png"
+import File_Person from "../assets/File_Person.png"
 ---
 
 <FullViewportLayout>
@@ -30,10 +41,21 @@ import sgi_obituary from "../assets/sgi-obituary.png"
 
 <WindowLayout>
 	<Toolchest slot="toolchest" />
-	<DesktopIcon slot="taskbar" windowId="window-origins" title="Origins" />
-	<DesktopIcon slot="taskbar" windowId="window-demo" title="Demo Reel" />
-	<DesktopIcon slot="taskbar" windowId="window-irix" title="IRIX" />
-	<DesktopIcon slot="taskbar" windowId="window-xclock" title="Clock" />
+	<!-- Real windows: group icon -->
+	<DesktopIcon slot="taskbar" windowId="window-origins" title="Origins" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="window-demo" title="Demo Reel" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="window-irix" title="IRIX" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="window-xclock" title="Clock" iconSrc={Misc_Deskbar_Group.src} />
+	<!-- Fictional apps (no window) -->
+	<DesktopIcon slot="taskbar" windowId="noop" title="Home Base" iconSrc={Action_GoHome_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Disc Jockey" iconSrc={App_CDPlayer.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Tube Viewer" iconSrc={App_TV_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Waveform Lab" iconSrc={File_Audio_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Read Me" iconSrc={Alert_Info.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Neighborhood Chat" iconSrc={App_Chat.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Smile Box" iconSrc={App_BeHappy.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Pocket Change" iconSrc={App_Poorman.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Rolodex" iconSrc={File_Person.src} />
 
 	<Window id="window-xclock" title="xclock" left={480} top={80} width={200} height={240}>
 		<XClock />
@@ -75,8 +97,17 @@ import sgi_obituary from "../assets/sgi-obituary.png"
 </FullViewportLayout>
 
 <WindowLayout>
-	<DesktopIcon slot="taskbar" windowId="window-about" title="About" />
-	<DesktopIcon slot="taskbar" windowId="window-webcam" title="Webcam" />
+	<DesktopIcon slot="taskbar" windowId="window-about" title="About" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="window-webcam" title="Webcam" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Home Base" iconSrc={Action_GoHome_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Disc Jockey" iconSrc={App_CDPlayer.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Tube Viewer" iconSrc={App_TV_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Waveform Lab" iconSrc={File_Audio_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Read Me" iconSrc={Alert_Info.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Neighborhood Chat" iconSrc={App_Chat.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Smile Box" iconSrc={App_BeHappy.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Pocket Change" iconSrc={App_Poorman.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Rolodex" iconSrc={File_Person.src} />
 
 	<Window id="window-about" title="About this project" left={80} top={60} width={420} height={260}>
 		<h2>Custom content for window 1</h2>
@@ -105,8 +136,17 @@ import sgi_obituary from "../assets/sgi-obituary.png"
 </FullViewportLayout>
 
 <WindowLayout>
-	<DesktopIcon slot="taskbar" windowId="window-about" title="About" />
-	<DesktopIcon slot="taskbar" windowId="window-webcam" title="Webcam" />
+	<DesktopIcon slot="taskbar" windowId="window-about" title="About" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="window-webcam" title="Webcam" iconSrc={Misc_Deskbar_Group.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Home Base" iconSrc={Action_GoHome_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Disc Jockey" iconSrc={App_CDPlayer.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Tube Viewer" iconSrc={App_TV_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Waveform Lab" iconSrc={File_Audio_2.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Read Me" iconSrc={Alert_Info.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Neighborhood Chat" iconSrc={App_Chat.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Smile Box" iconSrc={App_BeHappy.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Pocket Change" iconSrc={App_Poorman.src} />
+	<DesktopIcon slot="taskbar" windowId="noop" title="Rolodex" iconSrc={File_Person.src} />
 
 	<Window id="window-about" title="About this project" left={80} top={60} width={420} height={260}>
 		<h2>Custom content for window 1</h2>
