@@ -88,6 +88,7 @@ import Layout from './Layout.astro';
 	 position: relative;
 	 width: 100%;
 	 height: 100vh;
+	 z-index: 20;
  }
 
 .window-container :global(.window) {
@@ -103,6 +104,7 @@ import Layout from './Layout.astro';
 	 min-height: 100px;
 	 overflow: hidden;
 	 padding: 2px;
+	 z-index: 11;
  }
 
 .window-container :global(.window.hidden) {
@@ -459,6 +461,14 @@ import Layout from './Layout.astro';
 		 highestZIndex++;
 		 (win as HTMLElement).style.zIndex = String(highestZIndex);
 	 }
+
+	 // Initialize all visible windows with a z-index to ensure they appear above desktop icons
+	 windows.forEach((win, index) => {
+		 if (!win.classList.contains('hidden')) {
+			 highestZIndex++;
+			 (win as HTMLElement).style.zIndex = String(highestZIndex);
+		 }
+	 });
 
 	 // Start with xclock as the front-most window
 	 const xclock = document.getElementById('window-xclock');

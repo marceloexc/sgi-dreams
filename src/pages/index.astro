@@ -33,7 +33,7 @@ import File_Person from "../assets/File_Person.png"
 
 		<div class="bar">
 			<h2>
-				How Silicon Graphics changed computing forever
+				Silicon Graphics, the most influential computer company of the 90's that you've never heard of
 			</h2>
 			<p>An interactive retrospective by Marcelo Mendez</p>
 			<div class="scroll-indicator">
@@ -66,22 +66,24 @@ import File_Person from "../assets/File_Person.png"
 		<XClock />
 	</Window>
 
-	<Window id="window-origins" title="Silicon Graphics origins" left={50} top={50} width={400} height={300}>
+	<Window id="window-origins" title="Silicon Graphics origins" left={40} top={450} width={400} height={300}>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/dFUlAQZB9Ng?si=5bTTay12BT6fZpia&amp;start=3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 	</Window>
 
-	<Window id="window-demo" title="SGI demo reel" left={150} top={120} width={400} height={300}>
+	<Window id="window-demo" title="SGI demo reel" left={750} top={220} width={400} height={300}>
 		<!-- <WebcamDither /> -->
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/5TqPl3MSSow?si=IiMTnl9jTkohV4Ns&amp;start=32" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 	</Window>
 
-	<Window id="window-irix" title="Welcome to IRIX!" left={300} top={100} width={400} height={300}>
+	<Window id="window-irix" title="Welcome to Silicon Graphics!" left={300} top={100} width={400} height={300}>
 		<p>
-			IRIX is the desktop experience of Silicon Graphics Computers, the ultra powerful supercomputer product line that was behind many of the technical achievements in Hollywood throughout the 90's.
+			This is the desktop environment found on Silicon Graphics computers , the ultra powerful supercomputer product line that was behind many of the technical achievements in Hollywood throughout the 90's.
 
-			CGI Segments in movies such as Jurassic Park, Terminator 2, and the entirety of Toy Story were created, edited, and rendered entirely on SGI systems!
+			<br> <br> 
+			CGI Segments in movies such as Jurassic Park, Terminator 2, and the entirety of Toy Story were created, edited, and rendered entirely on SGI systems, back when most computers were still terminals.
+			<br> <br> 
 
-			You could expect to pay upwards of $200,000 for just ONE (1) of these workstations. If you had a team of artists that needed computers, that would be a lot of money spent on just hardware!
+			These machines were very expensive. You could expect to pay upwards of $200,000 for just one of these workstations!
 		</p>
 	</Window>
 </WindowLayout>
@@ -134,7 +136,7 @@ import File_Person from "../assets/File_Person.png"
 		<WebcamDither />
 	</Window>
 
-	<Window id="window-weather" title="WeatherProducer 3.0" left={650} top={340} width={320} height={220}>
+	<Window id="window-weather" title="WeatherProducer 3.0" left={650} top={340} width={320} height={290}>
 
 		<h3>WeatherProducer 3.0 was the premier television graphics software used for weather stations. It could render real time weather maps radar images that would then get broadcast live on air. </h3>
 
@@ -215,8 +217,12 @@ import File_Person from "../assets/File_Person.png"
 	 margin: 0;
  }
 
- h1, p, h2 {
+ h1, h2 {
 	 color: white;
+ }
+
+ p {
+	 color: black;
  }
 
  h2,h3 {
@@ -290,13 +296,13 @@ import File_Person from "../assets/File_Person.png"
  }
 
  .scroll-arrow {
-	 font-size: 1.5rem;
+	 font-size: 2rem;
 	 animation: bounce 1.5s ease-in-out infinite;
 	 display: inline-block;
  }
 
  .scroll-text {
-	 font-size: 0.9rem;
+	 font-size: 1.1rem;
  }
 
  @keyframes bounce {
