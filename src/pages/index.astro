@@ -36,7 +36,10 @@ import File_Person from "../assets/File_Person.png"
 				How Silicon Graphics changed computing forever
 			</h2>
 			<p>An interactive retrospective by Marcelo Mendez</p>
-
+			<div class="scroll-indicator">
+				<span class="scroll-arrow">↓</span>
+				<span class="scroll-text">Scroll down</span>
+			</div>
 		</div>
 	</div>
 </FullViewportLayout>
@@ -271,6 +274,40 @@ import File_Person from "../assets/File_Person.png"
 	 padding: clamp(1.5rem, 4vw, 3rem);
  }
 
+ .scroll-indicator {
+	 display: flex;
+	 align-items: center;
+	 gap: 0.5rem;
+	 margin-top: 1.5rem;
+	 opacity: 0;
+	 transition: opacity 0.8s ease-in-out;
+	 font-family: 'SGI', sans-serif;
+	 color: #CACEC7;
+ }
+
+ .scroll-indicator.visible {
+	 opacity: 1;
+ }
+
+ .scroll-arrow {
+	 font-size: 1.5rem;
+	 animation: bounce 1.5s ease-in-out infinite;
+	 display: inline-block;
+ }
+
+ .scroll-text {
+	 font-size: 0.9rem;
+ }
+
+ @keyframes bounce {
+	 0%, 100% {
+		 transform: translateY(0);
+	 }
+	 50% {
+		 transform: translateY(8px);
+	 }
+ }
+
  .hero p, .hero h2 {
 	 color: #CACEC7;
 	 font-family: 'SGI', sans-serif;
@@ -404,3 +441,14 @@ import File_Person from "../assets/File_Person.png"
  }
 
 </style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const scrollIndicator = document.querySelector('.scroll-indicator');
+		if (scrollIndicator) {
+			setTimeout(() => {
+				scrollIndicator.classList.add('visible');
+			}, 2000);
+		}
+	});
+</script>
